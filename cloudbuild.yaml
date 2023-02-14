@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/mvn'
-  args: ['package','-Dmaven.test.skip=true']
+  args: ['package','-Dmaven.test.skip=true','-Djar.finalName=myapp']
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'target/myjar.jar', 'gs://dataset2023/myjar.jar']
+  args: ['cp', 'target/myapp.jar', 'gs://dataset2023/myapp.jar']
