@@ -3,3 +3,5 @@ steps:
   args: ['package','-Dmaven.test.skip=true','-Djar.finalName=myapp']
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['cp', 'target/myapp.jar', 'gs://dataset2023/myapp.jar']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['dataflow', 'jobs', 'run', 'my-job', '--gcs-location', 'gs://dataset2023/myapp.jar', '--region', 'us-central1', '--class', 'WordCount','--output','gs://dataset2023/output','--runner','DataflowRunner','--gcpTempLocation','gs://dataset2023/temp']
