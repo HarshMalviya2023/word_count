@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.beam.examples;
+//package org.apache.beam.examples;
 
 // beam-playground:
 //   name: WordCount
@@ -28,7 +28,7 @@ package org.apache.beam.examples;
 //     - Options
 //     - Quickstart
 
-import org.apache.beam.examples.common.ExampleUtils;
+//import org.apache.beam.examples.common.ExampleUtils;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.metrics.Counter;
@@ -112,7 +112,7 @@ public class WordCount {
       }
 
       // Split the line into words.
-      String[] words = element.split(ExampleUtils.TOKENIZER_PATTERN, -1);
+      String[] words = element.split("[^\\p{L}]+", -1);
 
       // Output each word encountered into the output PCollection.
       for (String word : words) {
