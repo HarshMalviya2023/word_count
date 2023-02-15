@@ -3,6 +3,12 @@ steps:
 #   args: ['clean', 'install']
 # - name: gcr.io/cloud-builders/mvn
 #   args: ['-Pdataflow-runner', 'compile', 'exec:java', '-Dexec.mainClass=WordCount', '-Dexec.args=--project=learning-313419 --gcpTempLocation=gs://dataset2023/temp/ --output=gs://dataset2023/output --runner=DataflowRunner --region=us-central1']
-- name: gcr.io/cloud-builders/mvn
-  args: ['clean', 'compile', 'exec:java', '-Dexec.mainClass=com.impetus.dataflow.DLPCode', '-Dexec.args=--project=learning-313419 --gcpTempLocation=gs://dataset2023/temp/ --tempLocation=gs://dataset2023/temp/ --region=us-central1 --projectId=learning-313419 --deidentifyTemplateName=projects/learning-313419/locations/global/deidentifyTemplates/Copy-of-De-IdentiyTemplate1 --outputTableSpec=learning-313419:newoutput.test123 --query="select cid,bca from learning-313419.input_dataset.charge_volume limit 40" --runner=DataflowRunner']
+# - name: gcr.io/cloud-builders/mvn
+#   args: ['clean', 'compile', 'exec:java', '-Dexec.mainClass=com.impetus.dataflow.DLPCode', '-Dexec.args=--project=learning-313419 --gcpTempLocation=gs://dataset2023/temp/ --tempLocation=gs://dataset2023/temp/ --region=us-central1 --projectId=learning-313419 --deidentifyTemplateName=projects/learning-313419/locations/global/deidentifyTemplates/Copy-of-De-IdentiyTemplate1 --outputTableSpec=learning-313419:newoutput.test123 --query="select cid,bca from learning-313419.input_dataset.charge_volume limit 40" --runner=DataflowRunner']
   
+steps:
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - 'gsutil cp gs://dataset2023/templates . && gcloud dataflow jobs run newCICDJob --gcs-location=gs://dataset2023/templates/dlpcode --parameters=projectId=learning-313419,outputTableSpec=learning-313419:newoutput.test123,query="select cid,bca from learning-313419.input_dataset.charge_volume limit 40",runner=DataflowRunner --region=us-central1'
