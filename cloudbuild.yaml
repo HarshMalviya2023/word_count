@@ -16,5 +16,5 @@ steps:
     gcloud dataflow jobs run newCICDJob \
       --gcs-location=gs://dataset2023/templates/dlpcode \
       --region=us-central1 \
-      --parameters project=learning-313419,gcpTempLocation=gs://dataset2023/temp/,tempLocation=gs://dataset2023/temp/,deidentifyTemplateName=projects/learning-313419/locations/global/deidentifyTemplates/Copy-of-De-IdentiyTemplate1,outputTableSpec=learning-313419:newoutput.test123,query='select cid,bca from learning-313419.input_dataset.charge_volume limit 40',runner=DataflowRunner \
+      --parameters project=learning-313419,gcpTempLocation=gs://dataset2023/temp/,tempLocation=gs://dataset2023/temp/,deidentifyTemplateName=projects/learning-313419/locations/global/deidentifyTemplates/Copy-of-De-IdentiyTemplate1,outputTableSpec=learning-313419:newoutput.test123,query='select cid\,bca from learning-313419.input_dataset.charge_volume limit 40',runner=DataflowRunner \
       --template-file-gcs-location=./template.json
